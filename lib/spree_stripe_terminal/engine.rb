@@ -4,7 +4,7 @@ module SpreeStripeTerminal
     isolate_namespace Spree
     engine_name 'spree_stripe_terminal'
 
-    # use rspec for tests
+    # Use rspec for tests
     config.generators do |g|
       g.test_framework :rspec
     end
@@ -12,6 +12,7 @@ module SpreeStripeTerminal
     config.autoload_paths += %W(#{config.root}/lib)
 
     initializer "spree.gateway.payment_methods", :after => "spree.register.payment_methods" do |app|
+      app.config.spree.payment_methods ||= [] # Ensure it is initialized as an array
       app.config.spree.payment_methods << Spree::Gateway::StripeTerminalGateway
     end
 
