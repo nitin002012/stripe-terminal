@@ -12,7 +12,7 @@ module SpreeStripeTerminal
     config.autoload_paths += %W(#{config.root}/lib)
 
     initializer "spree.gateway.payment_methods", :after => "spree.register.payment_methods" do |app|
-      app.config.spree.payment_methods ||= [] # Ensure it is initialized as an array
+      app.config.spree.payment_methods ||= [] # Initialize if nil
       app.config.spree.payment_methods << Spree::Gateway::StripeTerminalGateway
     end
 
